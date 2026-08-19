@@ -6,6 +6,7 @@ import Inicio from './pages/Inicio'
 import Preambulos from './pages/Preambulos'
 import Configuracion from './pages/Configuracion'
 import Contrataciones from './pages/Contrataciones'
+import Estadisticas from './pages/Estadisticas'
 import Nosotros from './pages/Nosotros'
 import Blog from './pages/Blog'
 import Contacto from './pages/Contacto'
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="/preambulos" element={<Preambulos   />} />
           <Route path="/Configuracion" element={<Configuracion />} />
           <Route path="/contrataciones" element={<Contrataciones />} />
+          <Route path="/estadisticas" element={<Estadisticas />} />
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contacto" element={<Contacto />} />
