@@ -27,7 +27,7 @@ export default function Navbar() {
         setMobileOpen(false)
     }
 
-    return (
+return (
         <nav ref={navRef} className="relative bg-gray-900 border-gray-800 border-b z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
                 {/* Cambia h-16 por h-20 o h-24 para darle espacio al logo */}
@@ -40,17 +40,18 @@ export default function Navbar() {
                     <div className="hidden lg:flex items-center gap-1">
                         <Link to="/" onClick={() => { setActiveLink(0); setOpenDropdown(null); }} className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1 ${activeLink === 0 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}>Inicio</Link>
 
+                        {/* DESKTOP: Preambulos */}
                         <div className="relative">
                             <button
-                                onClick={() => setOpenDropdown(openDropdown === 2 ? null : 2)}
-                                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1 ${activeLink === 2 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}
+                                onClick={() => setOpenDropdown(openDropdown === 1 ? null : 1)}
+                                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1 ${activeLink === 1 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}
                             >
                                 Preambulos
-                                <svg className={`w-4 h-4 transition-transform duration-200 ${openDropdown === 2 ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                <svg className={`w-4 h-4 transition-transform duration-200 ${openDropdown === 1 ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 9l-7 7-7-7" />
                                 </svg>
                             </button>
-                            {openDropdown === 2 && (
+                            {openDropdown === 1 && (
                                 <div className="absolute top-full left-0 mt-1 w-48 rounded-lg border border-gray-700 bg-gray-900 shadow-xl py-1 z-50">
                                     <a href="#" onClick={handleSubMenuClick} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Opción 1</a>
                                     <a href="#" onClick={handleSubMenuClick} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Opción 2</a>
@@ -60,6 +61,7 @@ export default function Navbar() {
                             )}
                         </div>
 
+                        {/* DESKTOP: Configuracion */}
                         <div className="relative">
                             <button
                                 onClick={() => setOpenDropdown(openDropdown === 2 ? null : 2)}
@@ -112,16 +114,17 @@ export default function Navbar() {
                     <div className="px-4 py-3 space-y-1">
                         <Link to="/" onClick={() => { setActiveLink(0); setMobileOpen(false); }} className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${activeLink === 0 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}>Inicio</Link>
 
+                        {/* RESPONSIVE: Preambulos */}
                         <button
-                            onClick={() => setOpenDropdown(openDropdown === 2 ? null : 2)}
-                            className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${activeLink === 2 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'} w-full text-left inline-flex items-center justify-between`}
+                            onClick={() => setOpenDropdown(openDropdown === 1 ? null : 1)}
+                            className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${activeLink === 1 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'} w-full text-left inline-flex items-center justify-between`}
                         >
                             <span>Preambulos</span>
-                            <svg className={`w-4 h-4 transition-transform duration-200 ${openDropdown === 2 ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg className={`w-4 h-4 transition-transform duration-200 ${openDropdown === 1 ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
-                        {openDropdown === 2 && (
+                        {openDropdown === 1 && (
                             <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-700 pl-3">
                                 <a href="#" onClick={handleSubMenuClick} className="block px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors">Opción 1</a>
                                 <a href="#" onClick={handleSubMenuClick} className="block px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors">Opción 2</a>
@@ -129,12 +132,8 @@ export default function Navbar() {
                                 <a href="#" onClick={handleSubMenuClick} className="block px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors">Opción 4</a>
                             </div>
                         )}
-                        {openDropdown === 1 && (
-                            <div className="ml-4 mt-1 border-l-2 border-gray-700 pl-1 overflow-hidden">
-                                <FiltroCine onSelect={handleSubMenuClick} />
-                            </div>
-                        )}
 
+                        {/* RESPONSIVE: Configuracion */}
                         <button
                             onClick={() => setOpenDropdown(openDropdown === 2 ? null : 2)}
                             className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${activeLink === 2 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'} w-full text-left inline-flex items-center justify-between`}
