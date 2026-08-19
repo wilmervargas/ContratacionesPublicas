@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <!-- Fondo y biseles del sello -->
+    <linearGradient id="goldBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="30%" stop-color="#eab308"/>
+      <stop offset="70%" stop-color="#ca8a04"/>
+      <stop offset="100%" stop-color="#854d0e"/>
+    </linearGradient>
+
+    <linearGradient id="innerGold" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#a16207"/>
+      <stop offset="50%" stop-color="#eab308"/>
+      <stop offset="100%" stop-color="#fef08a"/>
+    </linearGradient>
+
+    <radialGradient id="navyBg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </radialGradient>
+
+    <!-- Sombra paralela -->
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="6" stdDeviation="4" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Marco Exterior Dorado -->
+  <ellipse cx="300" cy="200" rx="280" ry="175" fill="url(#goldBorder)" filter="url(#shadow)"/>
+  <ellipse cx="300" cy="200" rx="268" ry="163" fill="#0f172a"/>
+  <ellipse cx="300" cy="200" rx="260" ry="155" fill="url(#goldBorder)"/>
+  
+  <!-- Fondo Interior Azul Noche -->
+  <ellipse cx="300" cy="200" rx="252" ry="147" fill="url(#navyBg)"/>
+  <ellipse cx="300" cy="200" rx="245" ry="140" fill="none" stroke="url(#goldBorder)" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Bandera de Venezuela de fondo (Estilizada) -->
+  <g opacity="0.85">
+    <path d="M160 110 Q 300 90 440 110 L 440 155 Q 300 135 160 155 Z" fill="#cf2e2e"/>
+    <path d="M160 125 Q 300 105 440 125 L 440 155 Q 300 135 160 155 Z" fill="#0033a0"/>
+    <path d="M160 110 Q 300 90 440 110 L 440 125 Q 300 105 160 125 Z" fill="#fbc02d"/>
+    
+    <!-- Estrellas de la bandera -->
+    <g fill="#ffffff" transform="translate(0, -5)">
+      <circle cx="260" cy="132" r="2.5"/><circle cx="272" cy="128" r="2.5"/>
+      <circle cx="285" cy="126" r="2.5"/><circle cx="298" cy="125" r="2.5"/>
+      <circle cx="311" cy="126" r="2.5"/><circle cx="324" cy="128" r="2.5"/>
+      <circle cx="336" cy="132" r="2.5"/>
+    </g>
+  </g>
+
+  <!-- Hojas de Laurel (Izquierda y Derecha) -->
+  <g fill="url(#innerGold)">
+    <!-- Laurel Izquierdo -->
+    <path d="M140 190 C 130 160 145 130 165 110 C 160 125 155 145 160 165 Z"/>
+    <path d="M145 170 C 130 150 135 125 155 105 C 150 120 150 135 158 150 Z"/>
+    <!-- Laurel Derecho -->
+    <path d="M460 190 C 470 160 455 130 435 110 C 440 125 445 145 440 165 Z"/>
+    <path d="M455 170 C 470 150 465 125 445 105 C 450 120 450 135 442 150 Z"/>
+  </g>
+
+  <!-- Columnas de la Justicia -->
+  <g fill="url(#goldBorder)" filter="url(#shadow)">
+    <!-- Columna Izquierda -->
+    <rect x="180" y="105" width="32" height="10" rx="2"/>
+    <rect x="184" y="115" width="24" height="65"/>
+    <rect x="178" y="180" width="36" height="12" rx="2"/>
+    
+    <!-- Columna Derecha -->
+    <rect x="388" y="105" width="32" height="10" rx="2"/>
+    <rect x="392" y="115" width="24" height="65"/>
+    <rect x="386" y="180" width="36" height="12" rx="2"/>
+  </g>
+
+  <!-- Pergamino / Documento del Contrato (Centro) -->
+  <g filter="url(#shadow)">
+    <rect x="235" y="90" width="130" height="95" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+    <!-- Título Contrato -->
+    <text x="300" y="110" font-family="Arial, sans-serif" font-weight="900" font-size="12" fill="#1e293b" text-anchor="middle" letter-spacing="1">CONTRATO</text>
+    <line x1="250" y1="116" x2="350" y2="116" stroke="#94a3b8" stroke-width="2"/>
+    <!-- Líneas del contrato -->
+    <line x1="250" y1="126" x2="350" y2="126" stroke="#cbd5e1" stroke-width="2"/>
+    <line x1="250" y1="134" x2="350" y2="134" stroke="#cbd5e1" stroke-width="2"/>
+    <line x1="250" y1="142" x2="330" y2="142" stroke="#cbd5e1" stroke-width="2"/>
+    <!-- Firma y Sello Rojo -->
+    <path d="M255 160 Q 265 150 275 162 T 295 158" fill="none" stroke="#1e3a8a" stroke-width="2"/>
+    <circle cx="330" cy="158" r="12" fill="#dc2626"/>
+    <circle cx="330" cy="158" r="9" fill="none" stroke="#fef08a" stroke-width="1.5"/>
+  </g>
+
+  <!-- Borde Divisor Central -->
+  <line x1="120" y1="212" x2="480" y2="212" stroke="url(#goldBorder)" stroke-width="3"/>
+
+  <!-- Textos Principales (Tipografía) -->
+  <g text-anchor="middle" font-family="'Arial Black', Impact, sans-serif" filter="url(#shadow)">
+    <!-- CONTRATACIONES -->
+    <text x="300" y="248" font-size="34" font-weight="900" fill="url(#goldBorder)" letter-spacing="2">
+      CONTRATACIONES
+    </text>
+    <!-- PÚBLICAS -->
+    <text x="300" y="285" font-size="32" font-weight="900" fill="url(#goldBorder)" letter-spacing="3">
+      PÚBLICAS
+    </text>
+  </g>
+
+  <!-- Subtítulo Institucional Inferior -->
+  <text x="300" y="310" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="2">
+    REPÚBLICA BOLIVARIANA DE VENEZUELA
+  </text>
+  <text x="300" y="322" font-family="Arial, sans-serif" font-size="8.5" font-weight="600" fill="#e2e8f0" text-anchor="middle" letter-spacing="1.5">
+    SNC - REGISTRO NACIONAL DE CONTRATISTAS
+  </text>
+</svg>

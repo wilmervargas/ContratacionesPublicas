@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -29,9 +30,11 @@ export default function Navbar() {
     return (
         <nav ref={navRef} className="relative bg-gray-900 border-gray-800 border-b z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
-                <div className="flex items-center justify-between h-16">
+                {/* Cambia h-16 por h-20 o h-24 para darle espacio al logo */}
+                <div className="flex items-center justify-between h-20"> 
                     <Link to="/" onClick={() => setActiveLink(0)} className="flex items-center gap-3 shrink-0">
-                        <img src={`${import.meta.env.BASE_URL}logo.svg`} alt="Arsistema" className="h-8 w-auto" />
+                        {/* Sube la altura del logo (ej. h-16 = 64px) */}
+                        <img src={`${import.meta.env.BASE_URL}logo.svg`} alt="Contrataciones Públicas" className="h-16 w-auto" />
                     </Link>
 
                     <div className="hidden lg:flex items-center gap-1">
@@ -41,13 +44,11 @@ export default function Navbar() {
                             <button
                                 onClick={() => setOpenDropdown(openDropdown === 1 ? null : 1)}
                                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1 ${activeLink === 1 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}
-                            >
-                                Preambulos
+                                >Preambulos
                                 <svg className={`w-4 h-4 transition-transform duration-200 ${openDropdown === 1 ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                 </svg>
                             </button>
-
 
                         </div>
                         <div className="relative">
@@ -70,10 +71,10 @@ export default function Navbar() {
                             )}
                         </div>
 
-                        <Link to="/blog" onClick={() => { setActiveLink(3); setOpenDropdown(null); }} className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1 ${activeLink === 3 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}>Blog</Link>
-                        <Link to="/blog" onClick={() => { setActiveLink(3); setOpenDropdown(null); }} className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1 ${activeLink === 3 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}>Blog</Link>
-                        <Link to="/blog" onClick={() => { setActiveLink(3); setOpenDropdown(null); }} className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1 ${activeLink === 3 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}>Blog</Link>
-                        <Link to="/contacto" onClick={() => { setActiveLink(4); setOpenDropdown(null); }} className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1 ${activeLink === 4 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}>Contacto</Link>
+                        <Link to="/contrataciones" onClick={() => { setActiveLink(3); setOpenDropdown(null); }} className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1 ${activeLink === 3 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}>Contrataciones</Link>
+                        <Link to="/nosotros" onClick={() => { setActiveLink(4); setOpenDropdown(null); }} className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1 ${activeLink === 4 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}>Nosotros</Link>
+                        <Link to="/blog" onClick={() => { setActiveLink(5); setOpenDropdown(null); }} className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1 ${activeLink === 5 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}>Blog</Link>
+                        <Link to="/contacto" onClick={() => { setActiveLink(6); setOpenDropdown(null); }} className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1 ${activeLink === 6 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}>Contacto</Link>
                     </div>
                     <div className="flex items-center gap-4">
                         <div className="relative hidden lg:block">
@@ -134,8 +135,10 @@ export default function Navbar() {
                             </div>
                         )}
 
-                        <Link to="/blog" onClick={() => { setActiveLink(3); setMobileOpen(false); }} className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${activeLink === 3 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}>Blog</Link>
-                        <Link to="/contacto" onClick={() => { setActiveLink(4); setMobileOpen(false); }} className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${activeLink === 4 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}>Contacto</Link>
+                        <Link to="/contrataciones" onClick={() => { setActiveLink(3); setMobileOpen(false); }} className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${activeLink === 3 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}>Contrataciones</Link>
+                        <Link to="/nosotros" onClick={() => { setActiveLink(4); setMobileOpen(false); }} className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${activeLink === 4 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}>Nosotros</Link>
+                        <Link to="/blog" onClick={() => { setActiveLink(5); setMobileOpen(false); }} className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${activeLink === 5 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}>Blog</Link>
+                        <Link to="/contacto" onClick={() => { setActiveLink(6); setMobileOpen(false); }} className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${activeLink === 6 ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}>Contacto</Link>
 
                         <div className="pt-2"><button className="w-full px-4 py-2 text-sm font-medium rounded-lg bg-blue-500 hover:bg-blue-600 text-white">Empezar</button></div>
                     </div>
