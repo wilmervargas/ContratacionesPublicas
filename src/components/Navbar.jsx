@@ -4,11 +4,10 @@ import { Link } from 'react-router-dom'
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState(null) // 'preambulos' | 'configuracion' | 'contrataciones' | null
-  const [openSubmenu, setOpenSubmenu] = useState(null)   // 'ubicacion' | 'unidades' | null
+  const [openSubmenu, setOpenSubmenu] = useState(null)   // 'ubicacion' | 'unidades' | 'tiposorganismos' | 'cargas' | 'garantias' | 'parafiscales' | 'modalidades' | null
   const [activeLink, setActiveLink] = useState('inicio')
   const navRef = useRef(null)
 
-  // Cierra los menús al hacer clic fuera del componente
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (navRef.current && !navRef.current.contains(event.target)) {
@@ -20,7 +19,6 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  // Cierra todos los desplegables al hacer clic en un enlace final
   const handleNavClick = (linkId) => {
     if (linkId) setActiveLink(linkId)
     setOpenDropdown(null)
@@ -72,7 +70,7 @@ export default function Navbar() {
               {openDropdown === 'preambulos' && (
                 <div className="absolute top-full left-0 mt-1 w-64 rounded-lg border border-gray-700 bg-gray-900 shadow-xl py-1 z-50">
                   
-                  {/* Submenú Ubicación */}
+                  {/* Ubicación */}
                   <div 
                     className="relative group"
                     onMouseEnter={() => setOpenSubmenu('ubicacion')}
@@ -97,7 +95,34 @@ export default function Navbar() {
                     )}
                   </div>
 
-                  {/* Submenú Unidades de Cálculo */}
+                  {/* Tipos de Organismos */}
+                  <div 
+                    className="relative group"
+                    onMouseEnter={() => setOpenSubmenu('tiposorganismos')}
+                    onMouseLeave={() => setOpenSubmenu(null)}
+                  >
+                    <button 
+                      onClick={() => toggleSubmenu('tiposorganismos')}
+                      className="w-full flex items-center justify-between px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors text-left"
+                    >
+                      <span>Tipos de Organismos</span>
+                      <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+
+                    {openSubmenu === 'tiposorganismos' && (
+                      <div className="absolute left-full top-0 ml-1 w-56 rounded-lg border border-gray-700 bg-gray-900 shadow-xl py-1 z-50">
+                        <Link to="/preambulos/niveles" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Niveles</Link>
+                        <Link to="/preambulos/poderes" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Poderes</Link>
+                        <Link to="/preambulos/tipoorganismos" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Tipo de Organismos</Link>
+                      </div>
+                    )}
+                  </div>
+
+                  <Link to="/preambulos/normativa" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Normativa Legal</Link>
+
+                  {/* Unidades de Cálculo */}
                   <div 
                     className="relative group"
                     onMouseEnter={() => setOpenSubmenu('unidades')}
@@ -115,39 +140,118 @@ export default function Navbar() {
 
                     {openSubmenu === 'unidades' && (
                       <div className="absolute left-full top-0 ml-1 w-56 rounded-lg border border-gray-700 bg-gray-900 shadow-xl py-1 z-50">
-                        <Link to="/preambulos/iva" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Impuesto al Valor Agregado (IVA) </Link>
-                        <Link to="/preambulos/ucau" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Unidad para el Cálculo Aritmético del Umbral Máximo y Mínimo (UCAU) </Link>
-                        <Link to="#" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Otros</Link>
+                        <Link to="/preambulos/ut" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Unidad Tributaria (U.T.)</Link>
+                        <Link to="/preambulos/ucau" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Unidad para el Cálculo Aritmético del Umbral Máximo y Mínimo (UCAU)</Link>
                       </div>
                     )}
                   </div>
 
-                  {/* Submenú Tipos de Organismos */}
+                  {/* Cargas y Retenciones Tributarias */}
                   <div 
                     className="relative group"
-                    onMouseEnter={() => setOpenSubmenu('tipos_organismos')}
+                    onMouseEnter={() => setOpenSubmenu('cargas')}
                     onMouseLeave={() => setOpenSubmenu(null)}
                   >
                     <button 
-                      onClick={() => toggleSubmenu('tipos_organismos')}
+                      onClick={() => toggleSubmenu('cargas')}
                       className="w-full flex items-center justify-between px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors text-left"
                     >
-                      <span>Tipos de Organismos</span>
+                      <span>Cargas y Retenciones Tributarias</span>
                       <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </button>
 
-                    {openSubmenu === 'tipos_organismos' && (
+                    {openSubmenu === 'cargas' && (
                       <div className="absolute left-full top-0 ml-1 w-56 rounded-lg border border-gray-700 bg-gray-900 shadow-xl py-1 z-50">
-                        <Link to="/preambulos/niveles" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Niveles </Link>
-                        <Link to="/preambulos/poderes" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Poderes </Link>
-                        <Link to="/preambulos/tipo_organismos" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Tipo Organismos</Link>
+                        <Link to="/preambulos/islr" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">ISLR (2%)</Link>
+                        <Link to="/preambulos/islr_regional" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">ISLR Otro (1x1000 Carabobo)</Link>
+                        <Link to="/preambulos/iva" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">IVA (16%)</Link>
+                        <Link to="/preambulos/iva_retencion" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Retención IVA (75%)</Link>
                       </div>
                     )}
                   </div>
-                  <Link to="/preambulos/modalidades" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Modalidades / Lapsos</Link>
-                  <Link to="/preambulos/normativa" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Normativa Legal</Link>
+
+                  {/* Garantías y Otras Retenciones */}
+                  <div 
+                    className="relative group"
+                    onMouseEnter={() => setOpenSubmenu('garantias')}
+                    onMouseLeave={() => setOpenSubmenu(null)}
+                  >
+                    <button 
+                      onClick={() => toggleSubmenu('garantias')}
+                      className="w-full flex items-center justify-between px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors text-left"
+                    >
+                      <span>Garantías y Otras Retenciones</span>
+                      <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+
+                    {openSubmenu === 'garantias' && (
+                      <div className="absolute left-full top-0 ml-1 w-56 rounded-lg border border-gray-700 bg-gray-900 shadow-xl py-1 z-50">
+                        <Link to="/preambulos/fianza_mtto_oferta" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Fianza Mantenim. de Oferta</Link>
+                        <Link to="/preambulos/fianza_anticipo" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Fianza Anticipo (hasta 50%)</Link>
+                        <Link to="/preambulos/fianza_anticipo_especial" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Fianza Anticipo Especial (hasta 20% adicional)</Link>
+                        <Link to="/preambulos/fianza_fiel_cumplimiento" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Fianza Fiel Cumplimiento (20% monto S/IVA)</Link>
+                        <Link to="/preambulos/retencion_fiel_cumplimiento" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Retención Fiel Cumplimiento (20% monto S/IVA)</Link>
+                        <Link to="/preambulos/fianza_laboral" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Fianza Laboral (10% monto S/IVA)</Link>
+                        <Link to="/preambulos/retencion_laboral" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Retención Laboral (5%)</Link>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Registro de Parafiscales */}
+                  <div 
+                    className="relative group"
+                    onMouseEnter={() => setOpenSubmenu('parafiscales')}
+                    onMouseLeave={() => setOpenSubmenu(null)}
+                  >
+                    <button 
+                      onClick={() => toggleSubmenu('parafiscales')}
+                      className="w-full flex items-center justify-between px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors text-left"
+                    >
+                      <span>Registro de Parafiscales</span>
+                      <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+
+                    {openSubmenu === 'parafiscales' && (
+                      <div className="absolute left-full top-0 ml-1 w-56 rounded-lg border border-gray-700 bg-gray-900 shadow-xl py-1 z-50">
+                        <Link to="/preambulos/ivss" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">IVSS</Link>
+                        <Link to="/preambulos/banavih" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">BANAVIH</Link>
+                        <Link to="/preambulos/inces" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">INCES</Link>
+                        <Link to="/preambulos/rupdae" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">RUPDAE</Link>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Modalidades y Objetos */}
+                  <div 
+                    className="relative group"
+                    onMouseEnter={() => setOpenSubmenu('modalidades')}
+                    onMouseLeave={() => setOpenSubmenu(null)}
+                  >
+                    <button 
+                      onClick={() => toggleSubmenu('modalidades')}
+                      className="w-full flex items-center justify-between px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors text-left"
+                    >
+                      <span>Objetos Y Modalidades</span>
+                      <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+
+                    {openSubmenu === 'modalidades' && (
+                      <div className="absolute left-full top-0 ml-1 w-56 rounded-lg border border-gray-700 bg-gray-900 shadow-xl py-1 z-50">
+                        <Link to="/preambulos/objetos" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Objetos (Adq. Bienes, Servicios, Obras)</Link>
+                        <Link to="/preambulos/modalidades" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Modalidades (CP, CC, CA, CD)</Link>
+                        <Link to="/preambulos/objetos_modalidades" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Objetos / Modalidades (UCAUS)</Link>
+                      </div>
+                    )}
+                  </div>
+
                 </div>
               )}
             </div>
@@ -273,6 +377,27 @@ export default function Navbar() {
                   </div>
                 )}
 
+                {/* Accordion Tipos de Organismos */}
+                <button
+                  onClick={() => toggleSubmenu('tiposorganismos')}
+                  className="w-full flex items-center justify-between px-3 py-2 text-sm text-gray-400 hover:text-white rounded-lg hover:bg-gray-800 transition-colors text-left"
+                >
+                  <span>Tipos de Organismos</span>
+                  <svg className={`w-4 h-4 transition-transform duration-200 ${openSubmenu === 'tiposorganismos' ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {openSubmenu === 'tiposorganismos' && (
+                  <div className="ml-3 border-l border-gray-600 pl-3 space-y-1">
+                    <Link to="/preambulos/niveles" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Niveles</Link>
+                    <Link to="/preambulos/poderes" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Poderes</Link>
+                    <Link to="/preambulos/tipoorganismos" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Tipo de Organismos</Link>
+                  </div>
+                )}
+
+                <Link to="/preambulos/normativa" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Normativa Legal</Link>
+
                 {/* Accordion Unidades */}
                 <button
                   onClick={() => toggleSubmenu('unidades')}
@@ -286,15 +411,92 @@ export default function Navbar() {
 
                 {openSubmenu === 'unidades' && (
                   <div className="ml-3 border-l border-gray-600 pl-3 space-y-1">
-                    <Link to="/preambulos/iva" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Impuesto al Valor Agregado (IVA) </Link>
-                    <Link to="/preambulos/ucau" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Unidad para el Cálculo Aritmético del Umbral Máximo y Mínimo (UCAU) </Link>
-                    <Link to="/preambulos/otros" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Otros</Link>
+                    <Link to="/preambulos/ut" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Unidad Tributaria (U.T.)</Link>
+                    <Link to="/preambulos/ucau" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Unidad para el Cálculo Aritmético del Umbral Máximo y Mínimo (UCAU)</Link>
                   </div>
                 )}
 
-                <Link to="/preambulos/modalidades" onClick={() => handleNavClick('preambulos')} className="block px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors rounded-lg">Tipos de Organismos </Link>
-                <Link to="/preambulos/modalidades" onClick={() => handleNavClick('preambulos')} className="block px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors rounded-lg">Modalidades / Lapsos</Link>
-                <Link to="/preambulos/normativa" onClick={() => handleNavClick('preambulos')} className="block px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors rounded-lg">Normativa Legal</Link>
+                {/* Accordion Cargas y Retenciones Tributarias */}
+                <button
+                  onClick={() => toggleSubmenu('cargas')}
+                  className="w-full flex items-center justify-between px-3 py-2 text-sm text-gray-400 hover:text-white rounded-lg hover:bg-gray-800 transition-colors text-left"
+                >
+                  <span>Cargas y Retenciones Tributarias</span>
+                  <svg className={`w-4 h-4 transition-transform duration-200 ${openSubmenu === 'cargas' ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {openSubmenu === 'cargas' && (
+                  <div className="ml-3 border-l border-gray-600 pl-3 space-y-1">
+                    <Link to="/preambulos/islr" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">ISLR (2%)</Link>
+                    <Link to="/preambulos/islr_regional" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">ISLR Otro (1x1000 Carabobo)</Link>
+                    <Link to="/preambulos/iva" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">IVA (16%)</Link>
+                    <Link to="/preambulos/iva_retencion" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Retención IVA (75%)</Link>
+                  </div>
+                )}
+
+                {/* Accordion Garantías y Otras Retenciones */}
+                <button
+                  onClick={() => toggleSubmenu('garantias')}
+                  className="w-full flex items-center justify-between px-3 py-2 text-sm text-gray-400 hover:text-white rounded-lg hover:bg-gray-800 transition-colors text-left"
+                >
+                  <span>Garantías y Otras Retenciones</span>
+                  <svg className={`w-4 h-4 transition-transform duration-200 ${openSubmenu === 'garantias' ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {openSubmenu === 'garantias' && (
+                  <div className="ml-3 border-l border-gray-600 pl-3 space-y-1">
+                    <Link to="/preambulos/fianza_mtto_oferta" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Fianza Mantenim. de Oferta</Link>
+                    <Link to="/preambulos/fianza_anticipo" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Fianza Anticipo (hasta 50%)</Link>
+                    <Link to="/preambulos/fianza_anticipo_especial" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Fianza Anticipo Especial (hasta 20% adicional)</Link>
+                    <Link to="/preambulos/fianza_fiel_cumplimiento" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Fianza Fiel Cumplimiento (20% monto S/IVA)</Link>
+                    <Link to="/preambulos/retencion_fiel_cumplimiento" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Retención Fiel Cumplimiento (20% monto S/IVA)</Link>
+                    <Link to="/preambulos/fianza_laboral" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Fianza Laboral (10% monto S/IVA)</Link>
+                    <Link to="/preambulos/retencion_laboral" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Retención Laboral (5%)</Link>
+                  </div>
+                )}
+
+                {/* Accordion Registro de Parafiscales */}
+                <button
+                  onClick={() => toggleSubmenu('parafiscales')}
+                  className="w-full flex items-center justify-between px-3 py-2 text-sm text-gray-400 hover:text-white rounded-lg hover:bg-gray-800 transition-colors text-left"
+                >
+                  <span>Registro de Parafiscales</span>
+                  <svg className={`w-4 h-4 transition-transform duration-200 ${openSubmenu === 'parafiscales' ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {openSubmenu === 'parafiscales' && (
+                  <div className="ml-3 border-l border-gray-600 pl-3 space-y-1">
+                    <Link to="/preambulos/ivss" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">IVSS</Link>
+                    <Link to="/preambulos/banavih" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">BANAVIH</Link>
+                    <Link to="/preambulos/inces" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">INCES</Link>
+                    <Link to="/preambulos/rupdae" onClick={() => handleNavClick('preambulos')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">RUPDAE</Link>
+                  </div>
+                )}
+
+                {/* Accordion Modalidades y Objetos */}
+                <button
+                  onClick={() => toggleSubmenu('modalidades')}
+                  className="w-full flex items-center justify-between px-3 py-2 text-sm text-gray-400 hover:text-white rounded-lg hover:bg-gray-800 transition-colors text-left"
+                >
+                  <span>Modalidades y Objetos</span>
+                  <svg className={`w-4 h-4 transition-transform duration-200 ${openSubmenu === 'modalidades' ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {openSubmenu === 'modalidades' && (
+                  <div className="ml-3 border-l border-gray-600 pl-3 space-y-1">
+                    <Link to="/preambulos/objetos" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Objetos (Adq. Bienes, Servicios, Obras)</Link>
+                    <Link to="/preambulos/modalidades" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Modalidades (CP, CC, CA, CD)</Link>
+                    <Link to="/preambulos/objetos_modalidades" onClick={() => handleNavClick('preambulos')} className="block px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">Objetos / Modalidades (UCAUS)</Link>
+                  </div>
+                )}
               </div>
             )}
 
@@ -308,13 +510,14 @@ export default function Navbar() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
+
             {openDropdown === 'configuracion' && (
               <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-700 pl-3">
-                <Link to="/configuracion/organismo" onClick={() => handleNavClick('configuracion')} className="block px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors rounded-lg">Registro del Organismo cliente</Link>
-                <Link to="/configuracion/unidades" onClick={() => handleNavClick('configuracion')} className="block px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors rounded-lg">Unidades usuarias / contratantes</Link>
-                <Link to="/configuracion/cargos" onClick={() => handleNavClick('configuracion')} className="block px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors rounded-lg">Cargos de Cada Área</Link>
-                <Link to="/configuracion/comision" onClick={() => handleNavClick('configuracion')} className="block px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors rounded-lg">Comisión de Contrataciones</Link>
-                <Link to="/configuracion/contratistas" onClick={() => handleNavClick('configuracion')} className="block px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors rounded-lg">Histórico de contratistas</Link>
+                <Link to="/configuracion/organismo" onClick={() => handleNavClick('configuracion')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Registro del Organismo cliente</Link>
+                <Link to="/configuracion/unidades" onClick={() => handleNavClick('configuracion')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Unidades usuarias / contratantes</Link>
+                <Link to="/configuracion/cargos" onClick={() => handleNavClick('configuracion')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Cargos de Cada Área</Link>
+                <Link to="/configuracion/comision" onClick={() => handleNavClick('configuracion')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Comisión de Contrataciones</Link>
+                <Link to="/configuracion/contratistas" onClick={() => handleNavClick('configuracion')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Histórico de contratistas</Link>
               </div>
             )}
 
@@ -328,18 +531,19 @@ export default function Navbar() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
+
             {openDropdown === 'contrataciones' && (
               <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-700 pl-3">
-                <Link to="/contrataciones/previas" onClick={() => handleNavClick('contrataciones')} className="block px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors rounded-lg">Actividades Previas</Link>
-                <Link to="/contrataciones/apertura" onClick={() => handleNavClick('contrataciones')} className="block px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors rounded-lg">Apertura de Procedimiento</Link>
-                <Link to="/contrataciones/ofertas" onClick={() => handleNavClick('contrataciones')} className="block px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors rounded-lg">Recepción y Revisión de Ofertas</Link>
-                <Link to="/contrataciones/recomendaciones" onClick={() => handleNavClick('contrataciones')} className="block px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors rounded-lg">Informe de Recomendaciones</Link>
-                <Link to="/contrataciones/garantias" onClick={() => handleNavClick('contrataciones')} className="block px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors rounded-lg">Recepción y Revisión de Garantías</Link>
-                <Link to="/contrataciones/suscripcion" onClick={() => handleNavClick('contrataciones')} className="block px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors rounded-lg">Suscripción del Contrato</Link>
-                <Link to="/contrataciones/inicio" onClick={() => handleNavClick('contrataciones')} className="block px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors rounded-lg">Inicio del Contrato</Link>
-                <Link to="/contrataciones/control" onClick={() => handleNavClick('contrataciones')} className="block px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors rounded-lg">Control del Contrato</Link>
-                <Link to="/contrataciones/fin" onClick={() => handleNavClick('contrataciones')} className="block px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors rounded-lg">Fin del Contrato</Link>
-                <Link to="/contrataciones/snc" onClick={() => handleNavClick('contrataciones')} className="block px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 transition-colors rounded-lg">Informe al SNC</Link>
+                <Link to="/contrataciones/previas" onClick={() => handleNavClick('contrataciones')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Actividades Previas</Link>
+                <Link to="/contrataciones/apertura" onClick={() => handleNavClick('contrataciones')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Apertura de Procedimiento</Link>
+                <Link to="/contrataciones/ofertas" onClick={() => handleNavClick('contrataciones')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Recepción y Revisión de Ofertas</Link>
+                <Link to="/contrataciones/recomendaciones" onClick={() => handleNavClick('contrataciones')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Informe de Recomendaciones</Link>
+                <Link to="/contrataciones/garantias" onClick={() => handleNavClick('contrataciones')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Recepción y Revisión de Garantías</Link>
+                <Link to="/contrataciones/suscripcion" onClick={() => handleNavClick('contrataciones')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Suscripción del Contrato</Link>
+                <Link to="/contrataciones/inicio" onClick={() => handleNavClick('contrataciones')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Inicio del Contrato</Link>
+                <Link to="/contrataciones/control" onClick={() => handleNavClick('contrataciones')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Control del Contrato</Link>
+                <Link to="/contrataciones/fin" onClick={() => handleNavClick('contrataciones')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Fin del Contrato</Link>
+                <Link to="/contrataciones/snc" onClick={() => handleNavClick('contrataciones')} className="block px-3 py-1.5 text-xs text-gray-300 hover:text-white transition-colors">Informe al SNC</Link>
               </div>
             )}
 
@@ -347,12 +551,6 @@ export default function Navbar() {
             <Link to="/nosotros" onClick={() => handleNavClick('nosotros')} className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${activeLink === 'nosotros' ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}>Nosotros</Link>
             <Link to="/blog" onClick={() => handleNavClick('blog')} className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${activeLink === 'blog' ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}>Blog</Link>
             <Link to="/contacto" onClick={() => handleNavClick('contacto')} className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${activeLink === 'contacto' ? 'text-blue-400' : 'text-gray-400 hover:text-gray-200'}`}>Contacto</Link>
-
-            <div className="pt-2">
-              <button className="w-full px-4 py-2 text-sm font-medium rounded-lg bg-blue-500 hover:bg-blue-600 text-white transition-colors">
-                Empezar
-              </button>
-            </div>
           </div>
         </div>
       )}
